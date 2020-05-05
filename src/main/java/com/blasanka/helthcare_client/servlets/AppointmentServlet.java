@@ -1,15 +1,24 @@
 package com.blasanka.helthcare_client.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.blasanka.helthcare_client.models.Appointment;
+
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.client.Client;
 import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.client.WebTarget;
+import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.MultivaluedHashMap;
 import jakarta.ws.rs.core.MultivaluedMap;
@@ -34,13 +43,25 @@ public class AppointmentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Client client = ClientBuilder.newClient();
-		WebTarget target = client.target("http://localhost:8084/helthcare/appointments");
+		
 		MultivaluedMap<String, Object> headers = new MultivaluedHashMap<>();
 		headers.add("username", "BLA");
-		Response res = target.request().accept(MediaType.APPLICATION_JSON).get();
-		
-		if (res.getStatus() == 200) 
-			response.getWriter().append("Served at: ").append(res.getEntity().toString());
+		headers.add("Content-Type", "application/json");
+
+		GenericType<List<Appointment>> genericType = new GenericType<List<Appointment>>(){};
+	    WebTarget target = client.target("http://localhost:8084/helthcare/appointments");
+	    List<Appointment> appointments = target.request().headers(headers).get(genericType);
+	    
+		if (appointments.size() > 0) {
+			
+			for (Appointment app : appointments) {
+				response.getWriter().append(app.getAppointId()+"");
+			}
+			request.setAttribute("appointments", appointments);
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
+		} else {
+			
+		}
 	}
 
 	/**

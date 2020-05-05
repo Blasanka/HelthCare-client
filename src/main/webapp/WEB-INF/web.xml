@@ -8,6 +8,6 @@
     </servlet>
     <servlet-mapping>
 	    <servlet-name>AppointmentServlet</servlet-name>
-	    <url-pattern>/appointments/*</url-pattern>
+	    <url-pattern>/app</url-pattern>
     </servlet-mapping>
 </web-app>

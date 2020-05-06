@@ -21,6 +21,21 @@
     		<h4 class='mr-4' id="username">Appointments of <%= user.getUsername() %></h4>
     		<a href='/helthcare_client/appointment/add' class="btn btn-success">Make an appointment</a>
     	</div>
+		<div class="row col-12 mt-2 mb-4 mr-ms-4">
+			<% 
+			
+				if (session.getAttribute("success") != null) {
+					out.print("<div class='alert alert-success' role='alert'>"+session.getAttribute("success")+"</div>");
+					session.removeAttribute("success");
+				} 
+
+				if (session.getAttribute("error") != null) {
+					out.print("<div class='alert alert-danger' role='alert'>"+session.getAttribute("error")+"</div>");
+					session.removeAttribute("error");
+				}
+			
+			%>
+		</div>
     	<div class='row'>
     	<%   
 		ArrayList<Appointment> list = (ArrayList<Appointment>) request.getAttribute("appointments");

@@ -49,6 +49,17 @@ public class Appointment {
 		this.hospital = hospital;
 		this.user = user;
 	}
+	
+	public Appointment(long userId, long patientId, long doctorId, long hospitalId, Date date,
+			Date time) {
+		super();
+		this.userId = userId;
+		this.patientId = patientId;
+		this.doctorId = doctorId;
+		this.hospitalId = hospitalId;
+		this.date = date;
+		this.time = time;
+	}
 
 	public long getAppointId() {
 		return appointId;

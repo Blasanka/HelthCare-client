@@ -1,13 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This web.xml file is not required when using Servlet 3.0 container,
      see implementation details http://jersey.java.net/nonav/documentation/latest/jax-rs.html -->
-<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <servlet>
-        <servlet-name>AppointmentServlet</servlet-name>
-        <servlet-class>com.blasanka.helthcare_client.servlets.AppointmentServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-	    <servlet-name>AppointmentServlet</servlet-name>
-	    <url-pattern></url-pattern>
-    </servlet-mapping>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  <servlet>
+    <display-name>AppointmentServlet</display-name>
+    <servlet-name>AppointmentServlet</servlet-name>
+    <servlet-class>com.blasanka.helthcare_client.servlets.AppointmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AppointmentServlet</servlet-name>
+    <url-pattern></url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>PostAppointmentServlet</display-name>
+    <servlet-name>PostAppointmentServlet</servlet-name>
+    <jsp-file>/new-appointment.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PostAppointmentServlet</servlet-name>
+    <url-pattern>/appointment/add/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>AddAppointmentServlet</display-name>
+    <servlet-name>AddAppointmentServlet</servlet-name>
+    <servlet-class>com.blasanka.helthcare_client.servlets.AddAppointmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddAppointmentServlet</servlet-name>
+    <url-pattern>/appointment/add/new</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>EditAppointmentServlet</display-name>
+    <servlet-name>EditAppointmentServlet</servlet-name>
+    <jsp-file>/update-appointment.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EditAppointmentServlet</servlet-name>
+    <url-pattern>/appointment/change/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>UpdateAppointmentServlet</display-name>
+    <servlet-name>UpdateAppointmentServlet</servlet-name>
+    <servlet-class>com.blasanka.helthcare_client.servlets.UpdateAppointmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateAppointmentServlet</servlet-name>
+    <url-pattern>/change</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <display-name>CancelAppointmentServlet</display-name>
+    <servlet-name>CancelAppointmentServlet</servlet-name>
+    <servlet-class>com.blasanka.helthcare_client.servlets.CancelAppointmentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CancelAppointmentServlet</servlet-name>
+    <url-pattern>/appointment/cancel</url-pattern>
+  </servlet-mapping>
 </web-app>

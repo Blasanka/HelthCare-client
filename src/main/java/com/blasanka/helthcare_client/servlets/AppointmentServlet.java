@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.blasanka.helthcare_client.models.Appointment;
 
@@ -53,6 +54,9 @@ public class AppointmentServlet extends HttpServlet {
 	    List<Appointment> appointments = target.request().headers(headers).get(genericType);
 	    
 		if (appointments.size() > 0) {
+			HttpSession session = request.getSession();
+	        session.setAttribute("currentUser", appointments.get(0).getUser());
+	        session.setAttribute("currentPatient", appointments.get(0).getPatient());
 			
 			for (Appointment app : appointments) {
 				response.getWriter().append(app.getAppointId()+"");

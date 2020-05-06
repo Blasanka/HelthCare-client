@@ -53,8 +53,10 @@
 				out.print("<h6 class='card-subtitle mb-2'><span class='text-muted'>time is:  </span>" + dateText + " </h6>");
 				out.print("<p class='card-subtitle'><span class='text-muted'>Doctor name: </span>"+ appoint.getDoctor().getName() +"</p>");
 				out.print("<p class='card-text'><span class='text-muted'>Hospital name:  </span>"+ appoint.getHospital().getName() +"</p>");
-				out.print("<a href='/helthcare_client/appointment/change' class='card-link'>Change <i class='fa fa-pencil' aria-hidden='true'></i></a>");
-				out.print("<a href='' onClick='setId("+appoint.getAppointId()+")' id='warn' class='card-link warn' data-toggle='modal' data-target='#warningModal'>Cancel <i class='fa fa-ban' aria-hidden='true'></i></a>");
+				out.print("<a href='/helthcare_client/appointment/change?id=+"+appoint.getAppointId()
+						+"+' class='card-link'>Change <i class='fa fa-pencil' aria-hidden='true'></i></a>");
+				out.print("<a href='' onClick='setId("+appoint.getAppointId()
+					+")' id='warn' class='card-link warn' data-toggle='modal' data-target='#warningModal'>Cancel <i class='fa fa-ban' aria-hidden='true'></i></a>");
 				out.print("</div></div></div>");
 			}
 	    } else {

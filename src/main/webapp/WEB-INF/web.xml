@@ -45,7 +45,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>UpdateAppointmentServlet</servlet-name>
-    <url-pattern>/change</url-pattern>
+    <url-pattern>/appointment/edit</url-pattern>
   </servlet-mapping>
   <servlet>
     <display-name>CancelAppointmentServlet</display-name>

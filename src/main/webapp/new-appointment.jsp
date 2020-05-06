@@ -75,7 +75,7 @@
 									.getHospitalId()+">"+ appoint.getHospital().getName() +"</option>");
 							}
 			    		} else {
-			    			out.println("<option>No doctors found!</option>");
+			    			out.println("<option>No hospitals found!</option>");
 			    		}
 						%>
 					</select>

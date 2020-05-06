@@ -1,3 +1,5 @@
+<%@page import="jakarta.ws.rs.core.Response"%>
+<%@page import="java.util.Date"%>
 <%@page import="jakarta.ws.rs.client.WebTarget"%>
 <%@page import="java.util.List"%>
 <%@page import="jakarta.ws.rs.core.GenericType"%>
@@ -36,17 +38,32 @@
 		    		headers.add("username", "BLA");
 		    		headers.add("Content-Type", "application/json");
 
-		    		GenericType<List<Appointment>> genericType = new GenericType<List<Appointment>>(){};
-		    	    WebTarget target = client.target("http://localhost:8084/helthcare/appointments");
-		    	    List<Appointment> appointments = target.request().headers(headers).get(genericType);
+		    		String url = "http://localhost:8084/helthcare/appointments/"+request.getParameter("id");
+		    		
+		    	    WebTarget target = client.target(url.replaceAll(" ", ""));
+		    	    Response res = target.request().headers(headers).get(Response.class);
+
+		    	    Appointment appointment = new Appointment();
+		    	    
+		    	    java.sql.Date date = null;
+		    	    java.sql.Date time = null;
+		    		
+		    	    if (res.getStatus() == 200) {
+		    			appointment = res.readEntity(Appointment.class);
+		    			if (appointment != null) {
+			    			date = appointment.getDate();
+			    			time = appointment.getTime();
+			    		}
+		    		}
 			    %>
 	    		<a href="/helthcare_client/" class="mt-2 mr-4 card-link"><i class="fa fa-chevron-left" aria-hidden="true"></i> Go Back</a>
 			    <p class="mt-2 mr-ms-4">User: <%= user.getUsername() %></p>
     		</div>
     	</div>
     	<div class='row'>
-	    	<form id="submitForm" name="submitForm" method="POST" action="${pageContext.request.contextPath}/appointment/add/new">
+	    	<form id="submitForm" name="submitForm" method="POST" action="${pageContext.request.contextPath}/appointment/edit">
 				<div class="form-group" hidden>
+					<input type="appointId" class="form-control" id="appointId" name="appointId" aria-describedby="patientIdHelp" value="<%= appointment.getAppointId() %>" hidden>
 				    <input type="patientId" class="form-control" id="patientId" name="patientId" aria-describedby="patientIdHelp" value="<%= patient.getPatientId() %>" hidden>
 				    <input type="userId" class="form-control" id="userId" name="userId" aria-describedby="userIdHelp" value="<%= user.getUserId() %>" hidden>
 				</div>
@@ -54,11 +71,9 @@
 				    <label class="form-check-label" for="hospitalId">Doctor Name</label>
 					<select class="form-control" id="doctorId" name="doctorId">
 					  	<%   
-			    		if (appointments.size() > 0) {
-			    			for(Appointment appoint : appointments) {
-								out.print("<option value="+appoint.getDoctor()
-									.getDoctorId()+">"+ appoint.getDoctor().getName() +"</option>");
-							}
+			    		if (appointment.getAppointId() != 0) {
+			    			out.print("<option value="+appointment.getDoctor()
+								.getDoctorId()+">"+ appointment.getDoctor().getName() +"</option>");
 			    		} else {
 			    			out.println("<option>No doctors found!</option>");
 			    		}
@@ -69,24 +84,22 @@
 				    <label class="form-check-label" for="hospitalId">Hospital Name</label>
 					<select class="form-control" id="hospitalId" name="hospitalId">
 					  	<%
-			    		if (appointments.size() > 0) {
-			    			for(Appointment appoint : appointments) {
-								out.print("<option value="+appoint.getHospital()
-									.getHospitalId()+">"+ appoint.getHospital().getName() +"</option>");
-							}
+					  	if (appointment.getAppointId() != 0) {
+							out.print("<option value="+appointment.getHospital()
+								.getHospitalId()+">"+ appointment.getHospital().getName() +"</option>");
 			    		} else {
-			    			out.println("<option>No doctors found!</option>");
+			    			out.println("<option>No hospitals found!</option>");
 			    		}
 						%>
 					</select>
 				</div>
 				<div class="form-group form-check">
 			    	<label class="form-check-label" for="exampleCheck1">Select Date</label>
-			    	<input type="date" class="form-control" id="date" name="date" value="01/01/2000" />
+			    	<input type="date" class="form-control" id="date" name="date" value="<%= (date != null) ? date : "" %>" />
 				</div>
 				<div class="form-group form-check">
 			    	<label class="form-check-label" for="exampleCheck1">Select Time</label>
-			    	<input type="time" class="form-control" id="time" name="time" value="12:00 AM" />
+			    	<input type="time" class="form-control" id="time" name="time" value="<%= (time != null) ? date : "" %>" />
 				</div>
 				<div class="form-group">
 			  		<button type="clear" class="btn btn-default">Clear</button>
@@ -95,13 +108,15 @@
 			</form>
 		</div>
 	</div>
-   	<script>
-   		var myDate = document.getElementById("date");
-	  	var today = new Date();
-	  	myDate.value = today.toISOString().substr(0, 10);
-	  	
-   		var myTime = document.getElementById("time");
-	  	myTime.value = (new Date().getTime() + 4*60*60*1000).toLocaleTimeString();
-   	</script>
+	<% if (appointment.getAppointId() == 0) { %>
+	   	<script>
+	   		var myDate = document.getElementById("date");
+		  	var today = new Date();
+		  	myDate.value = today.toISOString().substr(0, 10);
+		  	
+	   		var myTime = document.getElementById("time");
+		  	myTime.value = newDate(new Date().getTime() + 4*60*60*1000).toLocaleTimeString();
+	   	</script>
+   	<% } %>
 </body>
 </html>

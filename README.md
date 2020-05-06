@@ -24,11 +24,11 @@ JAX-RS implementation(repository: https://github.com/Blasanka/HelthCare-api).
 
 Read
 
-<img src="https://github.com/Blasanka/helthcare-client/screenshots/appointment_read_ui.jpg" alt="appointment_read_ui.jpg" />
+<img src="https://raw.githubusercontent.com/Blasanka/helthcare-client/master/screenshots/appointment_read_ui.jpg" alt="appointment_read_ui.jpg" />
 
 Create
 
-<img src="hhttps://raw.githubusercontent.com/Blasanka/helthcare-client/master/screenshots/appointment_read_ui.jpg" alt="add new appointment ui.jpg" />
+<img src="https://raw.githubusercontent.com/Blasanka/helthcare-client/master/screenshots/add%20new%20appointment%20ui.jpg" alt="add new appointment ui.jpg" />
 
 Update
  

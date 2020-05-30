@@ -91,6 +91,7 @@
 	</div>
 	<script src="assets/jquery-min.js"></script>
 	<script type="text/javascript" src="assets/bootstrap.js"></script>
+	<script type="text/javascript" src="assets/js/main.js"></script>
 	<script>
 		function setId(id) {
 			document.getElementById('deleteId').value = id;
